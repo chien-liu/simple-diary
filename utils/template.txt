@@ -1,0 +1,5 @@
+# Date value in 'YYYY-MM-DD' format, leave it empty if it is for today.
+# Tags values in 'tag1 tag2 tag3 ...'
+Date:
+Tags:
+Content:    # Start from the next line
