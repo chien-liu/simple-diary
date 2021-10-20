@@ -25,13 +25,13 @@ def _decode(filename: str) -> Tuple[str, List[str], str]:
         tags = lines[3].strip()
         assert tags[:5] == "Tags:"
         if len(tags) > len("Tags:"):
-            tags = tags[5:].split(" ")
+            tags = tags[5:].strip().split(" ")
         else:
             tags = []
 
         content = lines[4]
         assert content[:8] == "Content:"
-        content = "\n".join(lines[5:])
+        content = "".join(lines[5:])
     return date, tags, content
 
 def _update_diary(db: Database, date: str, content: str) -> int:
