@@ -10,7 +10,7 @@ Database = mysql.connector.connection.MySQLConnection
 #     pass
 
 def test_decode_null():
-    filename = "utils/template.txt"
+    filename = "tests/blank-diary.txt"
     date, tags, content = _decode(filename)
     assert date == ""
     assert tags == []
