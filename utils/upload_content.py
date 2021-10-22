@@ -45,8 +45,8 @@ def _update_diary(db: Database, date: str, content: str) -> int:
     sql = "SELECT LAST_INSERT_ID() from diary"
     cursor.excute(sql)
     id = cursor.fetchall()  # TODO type convert
-    
-    return id
+    assert len(id) == 1
+    return id[0]
 
 def _update_tags(db: Database, tags: List[str]) -> List[int]:
     pass
