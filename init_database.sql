@@ -14,7 +14,8 @@ CREATE TABLE diary (
     id INT UNSIGNED AUTO_INCREMENT,
     date DATE NOT NULL,
     content LONGTEXT NOT NULL,
-    PRIMARY KEY(id)
+    PRIMARY KEY(id),
+    UNIQUE (date)
 );
 
 CREATE TABLE tag (
