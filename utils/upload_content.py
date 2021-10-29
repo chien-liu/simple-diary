@@ -49,4 +49,16 @@ def _update_diary(db: Database, date: str, content: str) -> int:
     return id[0]
 
 def _update_tags(db: Database, tags: List[str]) -> List[int]:
-    pass
+    cursor = db.cursor()
+    ids = []
+    for t in tags:
+        sql = "INSERT IGNORE INTO tag (name) VALUES (%s)"
+        cursor.excute(sql, t)
+        cursor.commit()
+
+        sql = "SELECT LAST_INSERT_ID() from tag"
+        cursor.excute(sql)
+        id = cursor.fetchall()  # TODO type convert
+        assert len(id) == 1
+        ids.append(id[0])
+    return ids
