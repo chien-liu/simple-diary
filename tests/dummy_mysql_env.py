@@ -15,7 +15,7 @@ class DummyMysqlEnv:
         cursor.execute(f"CREATE DATABASE {self.dbname}")
         cursor.close()
         
-        self.db = mysql.connector.connect(
+        self.database = mysql.connector.connect(
             host="localhost",
             user="youruser",
             password="yourpassword",
@@ -24,6 +24,6 @@ class DummyMysqlEnv:
         
 
     def __del__(self):
-        cursor = self.db.cursor()
+        cursor = self.database.cursor()
         cursor.execute(f"DROP DATABASE {self.dbname}")
         cursor.close()
