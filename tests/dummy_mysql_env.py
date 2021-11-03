@@ -1,26 +1,11 @@
 import mysql.connector
-
+from utils.create_database import create_diarydatabase
 
 class DummyMysqlEnv:
     dbname = "test_diary_database"
     def __init__(self):
         # Create test database
-        db = mysql.connector.connect(
-            host="localhost",
-            user="youruser",
-            password="yourpassword"
-        )
-
-        cursor = db.cursor()
-        cursor.execute(f"CREATE DATABASE {self.dbname}")
-        cursor.close()
-        
-        self.database = mysql.connector.connect(
-            host="localhost",
-            user="youruser",
-            password="yourpassword",
-            database=self.dbname
-        )
+        self.db = create_diarydatabase(self.dbname)
         
 
     def __del__(self):
