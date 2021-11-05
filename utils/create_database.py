@@ -1,21 +1,26 @@
 import mysql.connector
 
-def create_diarydatabase(name: str = "diarydatabase"):
-    # Create test database
-        db = mysql.connector.connect(
-            host="localhost",
-            user="youruser",
-            password="yourpassword"
-        )
 
-        cursor = db.cursor()
-        cursor.execute(f"CREATE DATABASE {name}")
-        cursor.close()
-        
-        db = mysql.connector.connect(
-            host="localhost",
-            user="youruser",
-            password="yourpassword",
-            database=name
-        )
-        return db
+# Type alias
+Cursor = mysql.connector.cursor_cext.CMySQLCursor
+
+def create_diarydatabase(DB_NAME: str = "diarydatabase"):
+    # Create test database
+    db = mysql.connector.connect(
+        host="localhost",
+        user="youruser",
+        password="yourpassword"
+    )
+
+    cursor = db.cursor()
+    try:
+        cursor.execute(f"CREATE DATABASE {DB_NAME}")
+    except mysql.connector.Error as err:
+        print(f"Failed creating database: {err}")
+
+    try:
+        cursor.execute(f"USE {DB_NAME}")
+    except mysql.connector.Error as err:
+        print(err)
+
+    return db    
