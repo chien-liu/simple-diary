@@ -19,5 +19,5 @@ def test_decode_lorem():
     filename = "tests/lorem-diary.txt"
     date, tags, content = ContentParser()(filename)
     assert date == "1234-56-78"
-    assert tags == ["A", "B", "C"]
-    assert content == "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\nCurabitur gravida est nec nunc vulputate suscipit."
+    assert tags == ["A", "B", "C", "中文", "字"]
+    assert content == "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\nCurabitur 她懷孕了，而不是現在 suscipit."
