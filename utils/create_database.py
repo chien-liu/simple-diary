@@ -1,5 +1,5 @@
 import mysql.connector
-
+from mysql.connector import errorcode
 
 # Type alias
 Cursor = mysql.connector.cursor_cext.CMySQLCursor
@@ -23,4 +23,47 @@ def create_diarydatabase(DB_NAME: str = "diarydatabase"):
     except mysql.connector.Error as err:
         print(err)
 
-    return db    
+    create_table(cursor)
+
+    return db
+
+
+def create_table(cursor: Cursor):
+    # https://dev.mysql.com/doc/connector-python/en/connector-python-example-ddl.html
+    TABLES = dict()
+    TABLES["diary"] = (
+        "CREATE TABLE diary ("
+        "    id INT UNSIGNED AUTO_INCREMENT,"
+        "    date DATE NOT NULL,"
+        "    content LONGTEXT NOT NULL,"
+        "    PRIMARY KEY(id),"
+        "    UNIQUE (date)"
+        ")"
+    )
+
+    TABLES["tag"] = (
+        "CREATE TABLE tag ("
+        "    id INT UNSIGNED AUTO_INCREMENT,"
+        "    name VARCHAR(40) NOT NULL,"
+        "    PRIMARY KEY(id),"
+        "    UNIQUE (name)"
+        ")"
+    )
+
+    TABLES["diary_tag"] = (
+        "CREATE TABLE diary_tag ("
+        "    diary_id INT UNSIGNED NOT NULL,"
+        "    tag_id INT UNSIGNED NOT NULL,"
+        "    UNIQUE (diary_id, tag_id)"
+        ")"
+    )
+
+    for table_name, table_description in TABLES.items():
+        try:
+            print(f"Creating table {table_name}")
+            cursor.execute(table_description)
+        except mysql.connector.Error as err:
+            if err.errno == errorcode.ER_TABLE_EXISTS_ERROR:
+                print("already exists.")
+            else:
+                print(err.msg)
