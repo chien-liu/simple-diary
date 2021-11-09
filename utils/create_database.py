@@ -2,7 +2,7 @@ import mysql.connector
 from mysql.connector import errorcode
 
 # Type alias
-Cursor = mysql.connector.cursor_cext.CMySQLCursor
+Cursor = mysql.connector.cursor.MySQLCursor
 
 def create_diarydatabase(DB_NAME: str = "diarydatabase"):
     # Create test database
