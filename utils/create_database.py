@@ -1,6 +1,8 @@
 import mysql.connector
 from mysql.connector import errorcode
 
+from tests.test_parser import Database
+
 # Type alias
 Cursor = mysql.connector.cursor.MySQLCursor
 

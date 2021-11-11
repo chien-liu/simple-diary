@@ -5,7 +5,7 @@ class DummyMysqlEnv:
     dbname = "test_diary_database"
     def __init__(self):
         # Create test database
-        self.db = create_diarydatabase(self.dbname)
+        self.database = create_diarydatabase(self.dbname)
         
 
     def __del__(self):
