@@ -19,6 +19,7 @@ def create_diarydatabase(DB_NAME: str = "diarydatabase"):
         cursor.execute(f"CREATE DATABASE {DB_NAME}")
     except mysql.connector.Error as err:
         print(f"Failed creating database: {err}")
+        return None
 
     try:
         cursor.execute(f"USE {DB_NAME}")
